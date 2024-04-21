@@ -11,6 +11,10 @@ export class ValantService {
   public getAvailableMoves(): Observable<string[]> {
     return this.httpClient.availableMoves();
   }
+
+  public getAllMazes(): Observable<string[]> {
+    return this.httpClient.all();
+  }
   
   public uploadMaze(request:ValantDemoApiClient.UploadMazeRequest): Observable<boolean> {
     return this.httpClient.upload(request);

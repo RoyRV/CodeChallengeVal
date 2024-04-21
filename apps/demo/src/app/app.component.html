@@ -1,7 +1,7 @@
 <header class="flex">
-  <img alt="Valant logo" width="150" src="../assets/valant_logo.png" />
-  <h1>Welcome to {{ title }}</h1>
+  <img alt="Valant logo" width="150" src="../assets/valant_logo.png" /> 
 </header>
 <main>
-  <valant-maze-generator></valant-maze-generator>
+  <valant-maze-generator (mazeAdded)="onMazeAdded()"></valant-maze-generator>
+  <valant-maze-list #mazeList></valant-maze-list>
 </main>

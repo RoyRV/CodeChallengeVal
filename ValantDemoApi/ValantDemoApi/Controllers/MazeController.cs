@@ -18,7 +18,7 @@ public sealed class MazeController : ControllerBase
     _logger = logger;
   }
 
-  [HttpGet("/")]
+  [HttpGet("/all")]
   public IEnumerable<string> GetAllMazes()
   {
     return _service.GetAllMazes();

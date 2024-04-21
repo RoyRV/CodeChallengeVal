@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { ValantService } from '../services/valant.service';
 import { ValantDemoApiClient } from '../api-client/api-client';
@@ -15,6 +15,8 @@ export class MazeGeneratorComponent implements OnInit {
   errorType: string = 'error-snackbar';
   warningType: string = 'warning-snackbar';
   successType: string = 'success-snackbar';
+  @Output() mazeAdded:EventEmitter<any> = new EventEmitter<any>();
+
 
   constructor(private valantService: ValantService, private _snackBar: MatSnackBar) {}
 
@@ -66,12 +68,13 @@ export class MazeGeneratorComponent implements OnInit {
       next: (response: boolean) => {
         if (response) {
           this.showFileTypeErrorAlert('Successfully upload', this.successType);
+          this.mazeAdded.emit(true); // Emit event to notify parent component (app-component)
         } else {
           this.showFileTypeErrorAlert('Invalid format', this.errorType);
         }
       },
       error: (error) => {
-        this.showFileTypeErrorAlert('Error getting stuff: ' + error, this.errorType);
+        this.showFileTypeErrorAlert('Error uploading maze file: ' + error, this.errorType);
       },
     });
   }

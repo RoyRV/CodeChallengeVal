@@ -1,31 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoggingService } from './logging/logging.service';
-import { ValantService } from './services/valant.service';
+import { MazeListComponent } from './maze-list/maze-list.component';
 
 @Component({
   selector: 'valant-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
 })
-export class AppComponent implements OnInit {
-  public title = 'Valant demo';
-  public data: string[];
+export class AppComponent implements OnInit { 
+  @ViewChild('mazeList') mazeList!: MazeListComponent;
 
-  constructor(private logger: LoggingService, private valantService: ValantService) {}
+  constructor(private logger: LoggingService) {}
 
   ngOnInit() {
-    this.logger.log('Welcome to the AppComponent');
-    this.getStuff();
-  }
+    this.logger.log('Welcome to the AppComponent'); 
+  }   
 
-  private getStuff(): void {
-    this.valantService.getAvailableMoves().subscribe({
-      next: (response: string[]) => {
-        this.data = response;
-      },
-      error: (error) => {
-        this.logger.error('Error getting stuff: ', error);
-      },
-    });
+  onMazeAdded(): void {
+    // Call the refreshTodoList method in TodoListComponent
+    this.mazeList.refresh();
   }
 }

@@ -29,8 +29,8 @@ export class Client {
     /**
      * @return Success
      */
-    anonymous(): Observable<string[]> {
-        let url_ = this.baseUrl + "/";
+    all(): Observable<string[]> {
+        let url_ = this.baseUrl + "/all";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -42,11 +42,11 @@ export class Client {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAnonymous(response_);
+            return this.processAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processAnonymous(<any>response_);
+                    return this.processAll(<any>response_);
                 } catch (e) {
                     return <Observable<string[]>><any>_observableThrow(e);
                 }
@@ -55,7 +55,7 @@ export class Client {
         }));
     }
 
-    protected processAnonymous(response: HttpResponseBase): Observable<string[]> {
+    protected processAll(response: HttpResponseBase): Observable<string[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :

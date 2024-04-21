@@ -1,15 +1,9 @@
-<div class="maze-generator-container">
+<div class="maze-generator-container" style="width: 80%; margin: 0 auto;">
   <div class="button-section">
     <input type="file" #file (change)="uploadMaze(file.files)" accept=".txt" />
-    <button (click)="handleGenerateClick()">Generate</button>
+    <button (click)="handleGenerateClick()">Upload</button>
   </div>
   <div class="button-section">
     <p *ngIf="hasWarnings">Not all the lines has the same length, missing spaces are going to be replaced with X.</p>
-  </div>
-  <div class="canvas-section">
-
-    <div>
-      <canvas id="canvas"></canvas>
-    </div>
   </div>
 </div>
