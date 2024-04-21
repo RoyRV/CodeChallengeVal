@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggingService } from './logging/logging.service';
-import { StuffService } from './stuff/stuff.service';
+import { ValantService } from './services/valant.service';
 
 @Component({
   selector: 'valant-root',
@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   public title = 'Valant demo';
   public data: string[];
 
-  constructor(private logger: LoggingService, private stuffService: StuffService) {}
+  constructor(private logger: LoggingService, private valantService: ValantService) {}
 
   ngOnInit() {
     this.logger.log('Welcome to the AppComponent');
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   private getStuff(): void {
-    this.stuffService.getStuff().subscribe({
+    this.valantService.getAvailableMoves().subscribe({
       next: (response: string[]) => {
         this.data = response;
       },
