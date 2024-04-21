@@ -50,4 +50,51 @@ public sealed class MazeRepositoryTests
     // Assert
     result.Should().BeFalse();
   }
+
+  [Theory, AutoMoqData]
+  public async Task WhenGettingById_ThenReturnsListOfStrings(string fileName, List<string> mazeFile)
+  {
+    // Arrange
+    _fileManagerMock
+      .Setup(mock => mock.ReadFile(fileName))
+      .ReturnsAsync(mazeFile);
+
+    // Act
+    var result = await _sut.GetById(fileName);
+
+    // Assert
+    result.Should().BeEquivalentTo(mazeFile);
+  }
+
+  [Theory, AutoMoqData]
+  public async Task GivenFileManagerThrowsFileNotFoundException_WhenGettingById_ThenReturnsNull(
+    string fileName, FileNotFoundException exception)
+  {
+    // Arrange
+    _fileManagerMock
+      .Setup(mock => mock.ReadFile(fileName))
+      .ThrowsAsync(exception);
+
+    // Act
+    var result = await _sut.GetById(fileName);
+
+    // Assert
+    result.Should().BeNull();
+  }
+
+  [Theory, AutoMoqData]
+  public async Task GivenFileManagerThrowsException_WhenGettingById_ThenThrowsException(
+    string fileName, Exception exception)
+  {
+    // Arrange
+    _fileManagerMock
+      .Setup(mock => mock.ReadFile(fileName))
+      .ThrowsAsync(exception);
+
+    // Act
+    var action = async () => await _sut.GetById(fileName);
+
+    // Assert
+    await action.Should().ThrowExactlyAsync<Exception>();
+  }
 }

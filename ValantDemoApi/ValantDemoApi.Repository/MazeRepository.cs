@@ -29,4 +29,22 @@ internal sealed class MazeRepository : IMazeRepository
   {
     return _fileManager.GetFileNames();
   }
+
+  public async Task<IEnumerable<string>> GetById(string fileName)
+  {
+    try
+    {
+      return await _fileManager.ReadFile(fileName);
+    }
+    catch (FileNotFoundException)
+    {
+      Console.WriteLine($"file {fileName} does not exists");
+      return null;
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine($"Error trying to read file: {fileName} - Exception :{e.Message}");
+      throw;
+    }
+  }
 }

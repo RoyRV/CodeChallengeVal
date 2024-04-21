@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ValantDemoApi.Services.Interfaces;
 
 namespace ValantDemoApi.Controllers;
@@ -28,5 +29,12 @@ public sealed class MazeController : ControllerBase
   public IEnumerable<string> GetNextAvailableMoves()
   {
     return new List<string> { "Up", "Down", "Left", "Right" };
+  }
+
+  [HttpGet("/{id}")]
+  public async Task<ActionResult> GetAllMazes(string id)
+  {
+    var result = await _service.GetMazeById(id);
+    return result is null ? NotFound() : Ok(result);
   }
 }

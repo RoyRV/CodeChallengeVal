@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using ValantDemoApi.Services;
 using ValantDemoApi.Repository;
 using ValantDemoApi.Controllers;
+using ValantDemoApi.Middleware;
 
 namespace ValantDemoApi
 {
@@ -22,6 +23,8 @@ namespace ValantDemoApi
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddTransient<GlobalExceptionMiddleware>();
+
       services.AddRepositories();
       services.AddServices();
       services.AddValidators();

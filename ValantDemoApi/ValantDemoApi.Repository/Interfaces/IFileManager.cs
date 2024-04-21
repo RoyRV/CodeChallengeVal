@@ -7,4 +7,5 @@ internal interface IFileManager
   Task<bool> WriteMultiLineFile(string fileName, List<string> fileLines);
 
   IEnumerable<string> GetFileNames();
+  Task<IEnumerable<string>> ReadFile(string fileName);
 }

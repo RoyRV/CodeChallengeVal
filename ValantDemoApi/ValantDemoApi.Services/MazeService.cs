@@ -16,4 +16,9 @@ internal sealed class MazeService : IMazeService
   {
     return _repository.GetAllMazes();
   }
+
+  public async Task<IEnumerable<string>> GetMazeById(string id)
+  {
+    return await _repository.GetById(id);
+  }
 }
