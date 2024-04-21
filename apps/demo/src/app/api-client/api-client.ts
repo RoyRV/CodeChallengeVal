@@ -27,35 +27,40 @@ export class Client {
     }
 
     /**
+     * @param body (optional) 
      * @return Success
      */
-    all(): Observable<string[]> {
+    all(body: GetMazesRequest | undefined): Observable<GetMazesResponse> {
         let url_ = this.baseUrl + "/all";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
                 "Accept": "text/plain"
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processAll(<any>response_);
                 } catch (e) {
-                    return <Observable<string[]>><any>_observableThrow(e);
+                    return <Observable<GetMazesResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<string[]>><any>_observableThrow(response_);
+                return <Observable<GetMazesResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processAll(response: HttpResponseBase): Observable<string[]> {
+    protected processAll(response: HttpResponseBase): Observable<GetMazesResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -65,7 +70,7 @@ export class Client {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : <string[]>JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = _responseText === "" ? null : <GetMazesResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -73,7 +78,7 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<string[]>(<any>null);
+        return _observableOf<GetMazesResponse>(<any>null);
     }
 
     /**
@@ -230,6 +235,16 @@ export class Client {
         }
         return _observableOf<boolean>(<any>null);
     }
+}
+
+export interface GetMazesRequest {
+    startIndex?: number;
+    size?: number;
+}
+
+export interface GetMazesResponse {
+    total?: number;
+    items?: string[] | undefined;
 }
 
 export interface UploadMazeRequest {

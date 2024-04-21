@@ -14,8 +14,4 @@
     <ProjectReference Include="..\ValantDemoApi.Services\ValantDemoApi.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="mazes\" />
-  </ItemGroup>
-
 </Project>

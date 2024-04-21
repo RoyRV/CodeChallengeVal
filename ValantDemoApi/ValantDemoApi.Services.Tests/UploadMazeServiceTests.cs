@@ -70,12 +70,13 @@ public sealed class UploadMazeServiceTests
     result.Should().BeFalse();
   }
 
-  private static List<string> GetRandomList()
+  private static List<string> GetRandomList(int size = 3)
   {
-    return new(){
-      StringGenerator.GenerateRandomString(),
-      StringGenerator.GenerateRandomString(),
-      StringGenerator.GenerateRandomString(),
-    };
+    var list = new List<string>();
+    for (var i = 0; i < size; i++)
+    {
+      list.Add(StringGenerator.GenerateRandomString());
+    }
+    return list;
   }
 }

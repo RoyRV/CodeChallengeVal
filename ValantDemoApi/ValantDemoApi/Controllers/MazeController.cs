@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ValantDemoApi.Models.GetMazes;
 using ValantDemoApi.Services.Interfaces;
 
 namespace ValantDemoApi.Controllers;
@@ -19,10 +20,11 @@ public sealed class MazeController : ControllerBase
     _logger = logger;
   }
 
-  [HttpGet("/all")]
-  public IEnumerable<string> GetAllMazes()
+  [HttpPost("/all")]
+  public GetMazesResponse GetAllMazes(GetMazesRequest request)
   {
-    return _service.GetAllMazes();
+    var (total, items) = _service.GetAllMazes(request.StartIndex, request.Size);
+    return new(total, items);
   }
 
   [HttpGet("/availableMoves")]

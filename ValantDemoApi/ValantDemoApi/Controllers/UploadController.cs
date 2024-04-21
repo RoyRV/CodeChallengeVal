@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using ValantDemoApi.Models;
+using ValantDemoApi.Models.UploadMaze;
 using ValantDemoApi.Services.Interfaces;
 
 namespace ValantDemoApi.Controllers;

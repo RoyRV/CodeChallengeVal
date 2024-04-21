@@ -3,13 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ValantDemoApi.Models;
+namespace ValantDemoApi.Models.UploadMaze;
 
-public sealed record UploadMazeRequest
-{
-  public string FileName { get; set; }
-  public List<string> MazeFile { get; set; }
-}
+public sealed record UploadMazeRequest(string FileName, List<string> MazeFile);
 
 public class UploadMazeRequestValidator : AbstractValidator<UploadMazeRequest>
 {

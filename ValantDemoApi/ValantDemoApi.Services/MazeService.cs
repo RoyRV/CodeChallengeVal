@@ -5,6 +5,9 @@ namespace ValantDemoApi.Services;
 
 internal sealed class MazeService : IMazeService
 {
+  // DEFAULT PAGINATION VALUES
+  private const int DEFAULT_START_INDEX = 0;
+  private const int DEFAULT_SIZE = 25;
   private readonly IMazeRepository _repository;
 
   public MazeService(IMazeRepository repository)
@@ -12,9 +15,21 @@ internal sealed class MazeService : IMazeService
     _repository = repository;
   }
 
-  public IEnumerable<string> GetAllMazes()
+  public (int, IEnumerable<string>) GetAllMazes(int startIndex, int size)
   {
-    return _repository.GetAllMazes();
+    var mazes = _repository.GetAllMazes();
+    if (!mazes.Any())
+    {
+      return (0, Enumerable.Empty<string>());
+    }
+
+    var numOfItems = mazes.Count();
+    if (numOfItems < size || startIndex > numOfItems)
+    {
+      startIndex = DEFAULT_START_INDEX;
+      size = DEFAULT_SIZE;
+    }
+    return (numOfItems, mazes.Skip(startIndex).Take(size));
   }
 
   public async Task<IEnumerable<string>> GetMazeById(string id)
