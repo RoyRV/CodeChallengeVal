@@ -48,6 +48,7 @@ project.lock.json
 
 # Visual Studio Code
 .vscode
+.npmrc
 
 # User-specific files
 *.suo
