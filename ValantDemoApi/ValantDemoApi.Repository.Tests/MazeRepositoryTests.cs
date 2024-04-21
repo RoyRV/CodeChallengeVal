@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Moq;
 using ValantDemoApi.Repository.Interfaces;
+using ValantDemoApi.Tests.Shared;
 using Xunit;
 
 namespace ValantDemoApi.Repository.Tests;
@@ -19,12 +20,10 @@ public sealed class MazeRepositoryTests
     _sut = new(_fileManagerMock.Object);
   }
 
-  [Fact]
-  public async Task WhenUploadingMaze_ThenReturnsTrue()
+  [Theory, AutoMoqData]
+  public async Task WhenUploadingMaze_ThenReturnsTrue(string fileName, List<string> mazeFile)
   {
     // Arrange
-    var mazeFile = new List<string>();
-    var fileName = "fileName.txt";
     _fileManagerMock
       .Setup(mock => mock.WriteMultiLineFile(fileName, mazeFile))
       .ReturnsAsync(true);
@@ -36,15 +35,14 @@ public sealed class MazeRepositoryTests
     result.Should().BeTrue();
   }
 
-  [Fact]
-  public async Task GivenFileManagerThrowsException_WhenUploadingMaze_ThenReturnsFalse()
+  [Theory, AutoMoqData]
+  public async Task GivenFileManagerThrowsException_WhenUploadingMaze_ThenReturnsFalse(
+    string fileName, List<string> mazeFile, Exception exception)
   {
     // Arrange
-    var mazeFile = new List<string>();
-    var fileName = "fileName.txt";
     _fileManagerMock
       .Setup(mock => mock.WriteMultiLineFile(fileName, mazeFile))
-      .ThrowsAsync(new Exception());
+      .ThrowsAsync(exception);
 
     // Act
     var result = await _sut.UploadMazeAsync(fileName, mazeFile);

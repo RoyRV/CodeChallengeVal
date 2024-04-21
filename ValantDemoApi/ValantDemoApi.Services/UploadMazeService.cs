@@ -14,6 +14,9 @@ internal sealed class UploadMazeService : IUploadMazeService
 
   public async Task<bool> UploadMazeAsync(string fileName, List<string> mazeFile)
   {
+    var maxLength = mazeFile.Max(x => x.Length);
+    // Completing strings than has lower length than maximum with X
+    mazeFile = mazeFile.Select(s => s.PadRight(maxLength, 'X').ToUpper()).ToList();
     return await _repository.UploadMazeAsync(fileName,mazeFile);
   }
 
