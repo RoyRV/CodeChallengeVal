@@ -1,0 +1,12 @@
+<div class="maze-generator-container">
+  <div class="button-section">
+    <input type="file" #file (change)="uploadMaze(file.files)"  accept=".txt" />
+    <button (click)="handleGenerateClick()">Generate</button>
+  </div>
+  <div class="canvas-section">
+    
+  <div>
+    <canvas id="canvas"></canvas>
+  </div>
+  </div>
+</div>
