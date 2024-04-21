@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoggingService } from './logging/logging.service';
-import { MazeListComponent } from './maze-list/maze-list.component';
 
 @Component({
   selector: 'valant-root',
@@ -8,7 +7,6 @@ import { MazeListComponent } from './maze-list/maze-list.component';
   styleUrls: ['./app.component.less'],
 })
 export class AppComponent implements OnInit { 
-  @ViewChild('mazeList') mazeList!: MazeListComponent;
 
   constructor(private logger: LoggingService) {}
 
@@ -16,8 +14,4 @@ export class AppComponent implements OnInit {
     this.logger.log('Welcome to the AppComponent'); 
   }   
 
-  onMazeAdded(): void {
-    // Call the refreshTodoList method in TodoListComponent
-    this.mazeList.refresh();
-  }
 }

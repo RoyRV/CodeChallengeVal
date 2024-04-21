@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Router } from '@angular/router';
+
 import { Maze } from '../entities/maze';
 import { ValantService } from '../services/valant.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ValantDemoApiClient } from '../api-client/api-client';
 
 @Component({
@@ -24,7 +27,10 @@ export class MazeListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private valantService: ValantService, private _snackBar: MatSnackBar) {}
+  constructor(
+    private valantService: ValantService,
+    private router: Router,
+    private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -72,16 +78,13 @@ export class MazeListComponent implements OnInit {
       size : event.pageSize
     };
 
-    this.loadData(request);
-
-    // const pageItems = this.dataSource.data.slice(startIndex, endIndex);
-
-    // this.dataSource.data = pageItems;
+    this.loadData(request); 
   }
 
   viewMaze(maze: Maze) {
     // Implement view logic here, for example, navigate to a detail page
     console.log('View maze:', maze.FileName);
+    this.router.navigate(['maze', maze.FileName]);
   }
 
   deleteMaze(maze: Maze) {
