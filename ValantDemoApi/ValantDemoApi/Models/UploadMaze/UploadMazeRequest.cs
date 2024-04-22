@@ -2,6 +2,7 @@ using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ValantDemoApi.Shared;
 
 namespace ValantDemoApi.Models.UploadMaze;
 
@@ -9,7 +10,6 @@ public sealed record UploadMazeRequest(string FileName, List<string> MazeFile);
 
 public class UploadMazeRequestValidator : AbstractValidator<UploadMazeRequest>
 {
-  const string ALLOWED_CHARS = "SOXE";
   public UploadMazeRequestValidator()
   {
     RuleFor(request => request.FileName)
@@ -29,7 +29,7 @@ public class UploadMazeRequestValidator : AbstractValidator<UploadMazeRequest>
 
 
     RuleForEach(request => request.MazeFile)
-           .Must(mazeLine => mazeLine.All(character => ALLOWED_CHARS.Contains(character, StringComparison.InvariantCultureIgnoreCase)))
+           .Must(mazeLine => mazeLine.All(character => ValantConstants.ALLOWED_CHARS.Contains(character, StringComparison.InvariantCultureIgnoreCase)))
            .WithMessage("Each string in MazeFile must contain only the characters 'S', 'O', 'X', and 'E'.");
   }
 }

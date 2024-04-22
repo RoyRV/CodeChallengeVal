@@ -25,16 +25,16 @@ internal sealed class MazeRepository : IMazeRepository
     }
   }
 
-  public IEnumerable<string> GetAllMazes()
+  public IList<string> GetAllMazes()
   {
-    return _fileManager.GetFileNames();
+    return _fileManager.GetFileNames().ToList();
   }
 
-  public async Task<IEnumerable<string>> GetById(string fileName)
+  public async Task<IList<string>> GetById(string fileName)
   {
     try
     {
-      return await _fileManager.ReadFile(fileName);
+      return (await _fileManager.ReadFile(fileName)).ToList();
     }
     catch (FileNotFoundException)
     {

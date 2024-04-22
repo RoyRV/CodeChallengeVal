@@ -58,6 +58,74 @@ public sealed class MazeServiceTests
     items.Should().HaveCount(numOfItems);
   }
 
+  [Theory, AutoMoqData]
+  public async Task GivenRepositoryReturnsNull_WhenGettingAvailableMoves_ThenReturnsEmpty(
+    string id, int position)
+  {
+    // Arrange
+    _mazeRepositoryMock
+        .Setup(mock => mock.GetById(id))
+        .ReturnsAsync((IList<string>)null);
+
+    // Act
+    var result = await _sut.GetAvailableMoves(id, position);
+
+    // Assert
+    result.Should().BeEmpty();
+  }
+
+  [Theory, AutoMoqData]
+  public async Task GivenRepositoryReturnsEmpty_WhenGettingAvailableMoves_ThenReturnsEmpty(
+    string id, int position)
+  {
+    // Arrange
+    _mazeRepositoryMock
+        .Setup(mock => mock.GetById(id))
+        .ReturnsAsync(Enumerable.Empty<string>().ToList());
+
+    // Act
+    var result = await _sut.GetAvailableMoves(id, position);
+
+    // Assert
+    result.Should().BeEmpty();
+  }
+
+  [Theory, AutoMoqData]
+  public async Task GivenRepositoryLessThanZeroPosition_WhenGettingAvailableMoves_ThenReturnsEmpty(
+    string id, IList<string> list)
+  {
+    // Arrange
+    var position = -1;
+    _mazeRepositoryMock
+        .Setup(mock => mock.GetById(id))
+        .ReturnsAsync(list);
+
+    // Act
+    var result = await _sut.GetAvailableMoves(id, position);
+
+    // Assert
+    result.Should().BeEmpty();
+  }
+
+  [Theory, AutoMoqData]
+  public async Task GivenRepositoryInvalidPosition_WhenGettingAvailableMoves_ThenReturnsEmpty(
+    string id, IList<string> list)
+  {
+    // Arrange
+    var rows = list.Count();
+    var columns = list.Max(x => x.Length);
+    var maxIndex = rows * columns ;
+    _mazeRepositoryMock
+        .Setup(mock => mock.GetById(id))
+        .ReturnsAsync(list);
+
+    // Act
+    var result = await _sut.GetAvailableMoves(id, maxIndex);
+
+    // Assert
+    result.Should().BeEmpty();
+  }
+
   private static List<string> GenerateRandomMazes(int size = 3)
   {
     var list = new List<string>();

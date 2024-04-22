@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ValantDemoApi.Services\ValantDemoApi.Services.csproj" />
+    <ProjectReference Include="..\ValantDemoApi.Shared\ValantDemoApi.Shared.csproj" />
   </ItemGroup>
 
 </Project>

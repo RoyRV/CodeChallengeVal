@@ -2,6 +2,7 @@ namespace ValantDemoApi.Services.Interfaces;
 
 public interface IMazeService
 {
-  (int,IEnumerable<string>) GetAllMazes(int startIndex, int size);
-  Task<IEnumerable<string>> GetMazeById(string id);
+  (int, IList<string>) GetAllMazes(int startIndex, int size);
+  Task<IList<string>> GetAvailableMoves(string id, int pos);
+  Task<IList<string>> GetMazeById(string id);
 }

@@ -62,7 +62,6 @@ export class MazeListComponent implements OnInit {
 
   // Method to refresh the todo list
   refresh(): void {
-    console.log('refresh');
     var request: ValantDemoApiClient.GetMazesRequest = {
       startIndex: this.START_INDEX,
       size : this.DEFAULT_SIZE
@@ -82,13 +81,10 @@ export class MazeListComponent implements OnInit {
   }
 
   viewMaze(maze: Maze) {
-    // Implement view logic here, for example, navigate to a detail page
-    console.log('View maze:', maze.FileName);
     this.router.navigate(['maze', maze.FileName]);
   }
 
   deleteMaze(maze: Maze) {
-    // Implement delete logic here, for example, remove item from dataSource
     console.log('Delete maze:', maze.FileName);
   }
 

@@ -17,7 +17,6 @@ export class MazeGeneratorComponent implements OnInit {
   successType: string = 'success-snackbar';
   @Output() mazeAdded:EventEmitter<any> = new EventEmitter<any>();
 
-
   constructor(private valantService: ValantService, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {}
@@ -26,14 +25,14 @@ export class MazeGeneratorComponent implements OnInit {
     this.mazeFile = null;
     this.hasWarnings = false;
     if (files.length === 0) {
-      this.showFileTypeErrorAlert('Multiple file uploads are not allowed.', this.errorType);
+      this.showAlert('Multiple file uploads are not allowed.', this.errorType);
       return;
     }
 
     const file: File = files[0];
     if (file) {
       if (!this.allowedFileTypes.includes(file.type)) {
-        this.showFileTypeErrorAlert('Only TXT files are allowed.', this.errorType);
+        this.showAlert('Only TXT files are allowed.', this.errorType);
         return;
       }
       if (!(await this.isValidContent(file))) {
@@ -45,7 +44,7 @@ export class MazeGeneratorComponent implements OnInit {
 
   async handleGenerateClick() {
     if (this.mazeFile == null) {
-      this.showFileTypeErrorAlert('Please upload a maze file first', this.errorType);
+      this.showAlert('Please upload a maze file first', this.errorType);
       return;
     }
     await this.uploadFile(this.mazeFile);
@@ -67,14 +66,14 @@ export class MazeGeneratorComponent implements OnInit {
     this.valantService.uploadMaze(request).subscribe({
       next: (response: boolean) => {
         if (response) {
-          this.showFileTypeErrorAlert('Successfully upload', this.successType);
+          this.showAlert('Successfully upload', this.successType);
           this.mazeAdded.emit(true); // Emit event to notify parent component (app-component)
         } else {
-          this.showFileTypeErrorAlert('Invalid format', this.errorType);
+          this.showAlert('Invalid format', this.errorType);
         }
       },
       error: (error) => {
-        this.showFileTypeErrorAlert('Error uploading maze file: ' + error, this.errorType);
+        this.showAlert('Error uploading maze file: ' + error, this.errorType);
       },
     });
   }
@@ -83,7 +82,7 @@ export class MazeGeneratorComponent implements OnInit {
     const lines: string[] = await this.getFileText(mazeFile);
     const pattern: RegExp = /^[\sSOXE]*$/i;
     if (!lines.every((item) => pattern.test(item))) {
-      this.showFileTypeErrorAlert('Format should only contains characters as S, O, X, E', this.errorType);
+      this.showAlert('Format should only contains characters as S, O, X, E', this.errorType);
       return false;
     }
     // Check if every string has the same length, first get the max length in the items
@@ -93,7 +92,7 @@ export class MazeGeneratorComponent implements OnInit {
     var hasSameLength = lines.every((item) => item.trim().length === maxLength);
     if (!hasSameLength) {
       this.hasWarnings = true;
-      this.showFileTypeErrorAlert(
+      this.showAlert(
         'Not all the lines has the same length, missing spaces are going to be replaced with X.',
         this.warningType
       );
@@ -117,7 +116,7 @@ export class MazeGeneratorComponent implements OnInit {
     });
   }
 
-  private showFileTypeErrorAlert(errorMessage: string, className: string) {
+  private showAlert(errorMessage: string, className: string) {
     this._snackBar.open(errorMessage, 'Close', {
       duration: 2000, // Duration in milliseconds
       verticalPosition: 'top', // Position of the alert

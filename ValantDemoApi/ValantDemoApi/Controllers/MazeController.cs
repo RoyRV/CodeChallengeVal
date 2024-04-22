@@ -12,12 +12,10 @@ namespace ValantDemoApi.Controllers;
 public sealed class MazeController : ControllerBase
 {
   private readonly IMazeService _service;
-  private readonly ILogger<MazeController> _logger;
 
-  public MazeController(IMazeService service,ILogger<MazeController> logger)
+  public MazeController(IMazeService service)
   {
     _service= service;
-    _logger = logger;
   }
 
   [HttpPost("/all")]
@@ -27,16 +25,16 @@ public sealed class MazeController : ControllerBase
     return new(total, items);
   }
 
-  [HttpGet("/availableMoves")]
-  public IEnumerable<string> GetNextAvailableMoves()
+  [HttpGet("/availableMoves/{pos}")]
+  public async Task<IEnumerable<string>> GetNextAvailableMovesAsync(string id,int pos)
   {
-    return new List<string> { "Up", "Down", "Left", "Right" };
+    return await _service.GetAvailableMoves(id,pos);
   }
 
-  [HttpGet("/{id}")]
-  public async Task<ActionResult> GetAllMazes(string id)
+  [HttpGet("/maze/{id}")]
+  public async Task<IEnumerable<string>> GetMazeById(string id)
   {
-    var result = await _service.GetMazeById(id);
-    return result is null ? NotFound() : Ok(result);
+    return await _service.GetMazeById(id);
+    //return result is null ? NotFound() : Ok(result);
   }
 }

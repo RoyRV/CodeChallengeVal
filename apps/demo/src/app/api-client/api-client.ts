@@ -82,10 +82,16 @@ export class Client {
     }
 
     /**
+     * @param id (optional) 
      * @return Success
      */
-    availableMoves(): Observable<string[]> {
-        let url_ = this.baseUrl + "/availableMoves";
+    availableMoves(id: string | null | undefined, pos: number): Observable<string[]> {
+        let url_ = this.baseUrl + "/availableMoves/{pos}?";
+        if (pos === undefined || pos === null)
+            throw new Error("The parameter 'pos' must be defined.");
+        url_ = url_.replace("{pos}", encodeURIComponent("" + pos));
+        if (id !== undefined && id !== null)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -134,8 +140,8 @@ export class Client {
     /**
      * @return Success
      */
-    anonymous(id: string | null): Observable<void> {
-        let url_ = this.baseUrl + "/{id}";
+    maze(id: string | null): Observable<string[]> {
+        let url_ = this.baseUrl + "/maze/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -145,24 +151,25 @@ export class Client {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Accept": "text/plain"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAnonymous(response_);
+            return this.processMaze(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processAnonymous(<any>response_);
+                    return this.processMaze(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<string[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<string[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processAnonymous(response: HttpResponseBase): Observable<void> {
+    protected processMaze(response: HttpResponseBase): Observable<string[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -171,14 +178,16 @@ export class Client {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <string[]>JSON.parse(_responseText, this.jsonParseReviver);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<string[]>(<any>null);
     }
 
     /**

@@ -12,11 +12,15 @@ export class ValantService {
     return this.httpClient.availableMoves();
   }
 
-  public getAllMazes(request:ValantDemoApiClient.GetMazesRequest): Observable<ValantDemoApiClient.GetMazesResponse> {
+  public getAllMazes(request: ValantDemoApiClient.GetMazesRequest): Observable<ValantDemoApiClient.GetMazesResponse> {
     return this.httpClient.all(request);
   }
-  
-  public uploadMaze(request:ValantDemoApiClient.UploadMazeRequest): Observable<boolean> {
+
+  public uploadMaze(request: ValantDemoApiClient.UploadMazeRequest): Observable<boolean> {
     return this.httpClient.upload(request);
+  }
+
+  public getMazeById(id: string): Observable<string[]> {
+    return this.httpClient.maze(id);
   }
 }

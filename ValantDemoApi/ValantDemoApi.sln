@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Repository", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Repository.Tests", "ValantDemoApi.Repository.Tests\ValantDemoApi.Repository.Tests.csproj", "{22F018A3-91B7-460B-B581-092AF4AB0096}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValantDemoApi.Tests.Shared", "ValantDemoApi.Tests.Shared\ValantDemoApi.Tests.Shared.csproj", "{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Tests.Shared", "ValantDemoApi.Tests.Shared\ValantDemoApi.Tests.Shared.csproj", "{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValantDemoApi.Shared", "ValantDemoApi.Shared\ValantDemoApi.Shared.csproj", "{1F3FC69A-9087-4D08-A812-CDC66003E752}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F3FC69A-9087-4D08-A812-CDC66003E752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F3FC69A-9087-4D08-A812-CDC66003E752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F3FC69A-9087-4D08-A812-CDC66003E752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F3FC69A-9087-4D08-A812-CDC66003E752}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{97E1D9B9-25B3-455C-B85F-1423F012A084} = {BD058391-CC21-4AE8-AEF4-67F7A037F4C1}
 		{22F018A3-91B7-460B-B581-092AF4AB0096} = {E350BD4B-5F56-4BAC-B405-6EB8242241F0}
 		{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8} = {E350BD4B-5F56-4BAC-B405-6EB8242241F0}
+		{1F3FC69A-9087-4D08-A812-CDC66003E752} = {BD058391-CC21-4AE8-AEF4-67F7A037F4C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {091496D8-4BE7-445B-A1A2-C730A60A1FA4}

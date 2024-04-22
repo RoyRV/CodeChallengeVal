@@ -1,5 +1,6 @@
 using ValantDemoApi.Repository.Interfaces;
 using ValantDemoApi.Services.Interfaces;
+using ValantDemoApi.Shared;
 
 namespace ValantDemoApi.Services;
 
@@ -16,7 +17,9 @@ internal sealed class UploadMazeService : IUploadMazeService
   {
     var maxLength = mazeFile.Max(x => x.Length);
     // Completing strings than has lower length than maximum with X
-    mazeFile = mazeFile.Select(s => s.PadRight(maxLength, 'X').ToUpper()).ToList();
+    mazeFile = mazeFile
+      .Select(s => s.PadRight(maxLength, ValantConstants.BLOCKER_CHAR).ToUpper())
+      .ToList();
     return await _repository.UploadMazeAsync(fileName,mazeFile);
   }
 
