@@ -15,7 +15,6 @@ export class MazeIndexComponent implements OnInit {
   }
   
   onMazeAdded(): void {
-    // Call the refreshTodoList method in TodoListComponent
     this.mazeList.refresh();
   }
 

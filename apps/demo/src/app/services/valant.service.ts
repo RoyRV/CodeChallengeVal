@@ -8,8 +8,8 @@ import { ValantDemoApiClient } from '../api-client/api-client';
 export class ValantService {
   constructor(private httpClient: ValantDemoApiClient.Client) {}
 
-  public getAvailableMoves(): Observable<string[]> {
-    return this.httpClient.availableMoves();
+  public getAvailableMoves(id:string, pos:number): Observable<string[]> {
+    return this.httpClient.availableMoves(id, pos);
   }
 
   public getAllMazes(request: ValantDemoApiClient.GetMazesRequest): Observable<ValantDemoApiClient.GetMazesResponse> {

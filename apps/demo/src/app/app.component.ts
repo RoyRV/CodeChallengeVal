@@ -7,6 +7,7 @@ import { LoggingService } from './logging/logging.service';
   styleUrls: ['./app.component.less'],
 })
 export class AppComponent implements OnInit { 
+  public title = 'Valant demo';
 
   constructor(private logger: LoggingService) {}
 

@@ -1,41 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { Maze } from '../entities/maze';
-import { ActivatedRoute,Router  } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ValantService } from '../services/valant.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'valant-maze-details',
   templateUrl: './maze-details.component.html',
-  styleUrls: ['./maze-details.component.less']
+  styleUrls: ['./maze-details.component.less'],
 })
 export class MazeDetailsComponent implements OnInit {
-  mazeId:string;
-  maze: Maze;
+  mazeId: string;
+  maze: string[];
+  columns: number = 0;
   errorType: string = 'error-snackbar';
   warningType: string = 'warning-snackbar';
+  successType: string = 'success-snackbar';
 
   constructor(
-    private valantService: ValantService,  
+    private valantService: ValantService,
     private route: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.mazeId = params['id']; 
-      this.getDetails(this.mazeId); 
+    this.route.params.subscribe((params) => {
+      this.mazeId = params['id'];
+      this.getDetails(this.mazeId);
     });
   }
 
   private getDetails(mazeId: string) {
     this.valantService.getMazeById(mazeId).subscribe({
       next: (response: string[]) => {
-        if(response == null){
+        if (response == null || response.length == 0) {
           this.showAlert(`Maze with fileName ${mazeId} does not exists.`, this.warningType);
           // Redirect if not found
-          setTimeout(() => { this.router.navigate(['/']); }, 3000); 
-          return;         
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 3000);
+          return;
         }
         this.handleMaze(response);
       },
@@ -45,8 +49,33 @@ export class MazeDetailsComponent implements OnInit {
     });
   }
 
-  private handleMaze(response: string[]) {
-    
+  goToList() {
+    this.router.navigate(['/']);
+  }
+
+  private handleMaze(maze: string[]) {
+    this.maze = maze;
+    this.columns = maze.reduce((max, str) => Math.max(max, str.length), 0);
+  }
+
+  splitStringIntoCharacters(line: string): string[] {
+    return line.split('');
+  }
+
+  checkAvailableMoves(rowIndex: number, columnIndex: number) {
+    const position = this.columns * rowIndex + columnIndex;
+    this.valantService.getAvailableMoves(this.mazeId, position).subscribe({
+      next: (response: string[]) => {
+        if (!response.length) {
+          this.showAlert(`No Possible moves!`, this.warningType);
+        } else {
+          this.showAlert(`Possible moves : ${response.join(', ')}!`, this.successType);
+        }
+      },
+      error: (error) => {
+        this.showAlert('Failed to retrieve available moves', this.errorType);
+      },
+    });
   }
 
   private showAlert(errorMessage: string, className: string) {

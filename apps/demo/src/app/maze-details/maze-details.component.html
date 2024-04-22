@@ -1,1 +1,20 @@
-<p>maze-details works!</p>
+<div class="maze-generator-container" style="width: 80%; margin: 0 auto;border-collapse: collapse;">
+    <div style="margin-top: 20px;">
+        <button (click)="goToList()">Go back</button>
+    </div>
+    <div>
+        <table style="margin: 0 auto;">
+            <tbody>
+                <tr *ngFor="let line of maze;let rowIndex = index">
+                    <td>
+                        <button *ngFor="let char of splitStringIntoCharacters(line); let columnIndex=index" 
+                                class="btnChar" 
+                                type="button"
+                                (click)="checkAvailableMoves(rowIndex,columnIndex)"
+                                >{{ char }}</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

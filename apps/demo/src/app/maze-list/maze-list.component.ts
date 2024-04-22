@@ -60,7 +60,6 @@ export class MazeListComponent implements OnInit {
     });
   }
 
-  // Method to refresh the todo list
   refresh(): void {
     var request: ValantDemoApiClient.GetMazesRequest = {
       startIndex: this.START_INDEX,
