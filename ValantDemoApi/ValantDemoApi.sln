@@ -1,11 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValantDemoApi", "ValantDemoApi\ValantDemoApi.csproj", "{1FA8816A-A920-4B6E-8E7C-4F0E2F99F660}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi", "ValantDemoApi\ValantDemoApi.csproj", "{1FA8816A-A920-4B6E-8E7C-4F0E2F99F660}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValantDemoApi.Tests", "ValantDemoApi.Tests\ValantDemoApi.Tests.csproj", "{6A587664-C6B8-42B6-94BC-65F1D88EE4A4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BD058391-CC21-4AE8-AEF4-67F7A037F4C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E350BD4B-5F56-4BAC-B405-6EB8242241F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Services", "ValantDemoApi.Services\ValantDemoApi.Services.csproj", "{409F4C19-61D3-459E-86C8-4474E8979A60}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Integration.Tests", "ValantDemoApi.Integration.Tests\ValantDemoApi.Integration.Tests.csproj", "{36B2FE3F-EEF9-40C9-B1D4-32772515FC58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Tests", "ValantDemoApi.Tests\ValantDemoApi.Tests.csproj", "{DF207CB6-AD7B-4B92-B5EA-81136216E14B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Services.Tests", "ValantDemoApi.Services.Tests\ValantDemoApi.Services.Tests.csproj", "{5DF3EB68-FB9F-4FBD-B94F-B232354F1C93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Repository", "ValantDemoApi.Repository\ValantDemoApi.Repository.csproj", "{97E1D9B9-25B3-455C-B85F-1423F012A084}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Repository.Tests", "ValantDemoApi.Repository.Tests\ValantDemoApi.Repository.Tests.csproj", "{22F018A3-91B7-460B-B581-092AF4AB0096}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValantDemoApi.Tests.Shared", "ValantDemoApi.Tests.Shared\ValantDemoApi.Tests.Shared.csproj", "{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValantDemoApi.Shared", "ValantDemoApi.Shared\ValantDemoApi.Shared.csproj", "{1F3FC69A-9087-4D08-A812-CDC66003E752}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,13 +35,52 @@ Global
 		{1FA8816A-A920-4B6E-8E7C-4F0E2F99F660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FA8816A-A920-4B6E-8E7C-4F0E2F99F660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FA8816A-A920-4B6E-8E7C-4F0E2F99F660}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A587664-C6B8-42B6-94BC-65F1D88EE4A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A587664-C6B8-42B6-94BC-65F1D88EE4A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A587664-C6B8-42B6-94BC-65F1D88EE4A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A587664-C6B8-42B6-94BC-65F1D88EE4A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{409F4C19-61D3-459E-86C8-4474E8979A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{409F4C19-61D3-459E-86C8-4474E8979A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{409F4C19-61D3-459E-86C8-4474E8979A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{409F4C19-61D3-459E-86C8-4474E8979A60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36B2FE3F-EEF9-40C9-B1D4-32772515FC58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36B2FE3F-EEF9-40C9-B1D4-32772515FC58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36B2FE3F-EEF9-40C9-B1D4-32772515FC58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36B2FE3F-EEF9-40C9-B1D4-32772515FC58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF207CB6-AD7B-4B92-B5EA-81136216E14B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF207CB6-AD7B-4B92-B5EA-81136216E14B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF207CB6-AD7B-4B92-B5EA-81136216E14B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF207CB6-AD7B-4B92-B5EA-81136216E14B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DF3EB68-FB9F-4FBD-B94F-B232354F1C93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DF3EB68-FB9F-4FBD-B94F-B232354F1C93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DF3EB68-FB9F-4FBD-B94F-B232354F1C93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DF3EB68-FB9F-4FBD-B94F-B232354F1C93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E1D9B9-25B3-455C-B85F-1423F012A084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E1D9B9-25B3-455C-B85F-1423F012A084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E1D9B9-25B3-455C-B85F-1423F012A084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E1D9B9-25B3-455C-B85F-1423F012A084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F018A3-91B7-460B-B581-092AF4AB0096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F018A3-91B7-460B-B581-092AF4AB0096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F018A3-91B7-460B-B581-092AF4AB0096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F018A3-91B7-460B-B581-092AF4AB0096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F3FC69A-9087-4D08-A812-CDC66003E752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F3FC69A-9087-4D08-A812-CDC66003E752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F3FC69A-9087-4D08-A812-CDC66003E752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F3FC69A-9087-4D08-A812-CDC66003E752}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1FA8816A-A920-4B6E-8E7C-4F0E2F99F660} = {BD058391-CC21-4AE8-AEF4-67F7A037F4C1}
+		{409F4C19-61D3-459E-86C8-4474E8979A60} = {BD058391-CC21-4AE8-AEF4-67F7A037F4C1}
+		{36B2FE3F-EEF9-40C9-B1D4-32772515FC58} = {E350BD4B-5F56-4BAC-B405-6EB8242241F0}
+		{DF207CB6-AD7B-4B92-B5EA-81136216E14B} = {E350BD4B-5F56-4BAC-B405-6EB8242241F0}
+		{5DF3EB68-FB9F-4FBD-B94F-B232354F1C93} = {E350BD4B-5F56-4BAC-B405-6EB8242241F0}
+		{97E1D9B9-25B3-455C-B85F-1423F012A084} = {BD058391-CC21-4AE8-AEF4-67F7A037F4C1}
+		{22F018A3-91B7-460B-B581-092AF4AB0096} = {E350BD4B-5F56-4BAC-B405-6EB8242241F0}
+		{AE6E1BE2-1202-45A3-865C-6EBF3B0796F8} = {E350BD4B-5F56-4BAC-B405-6EB8242241F0}
+		{1F3FC69A-9087-4D08-A812-CDC66003E752} = {BD058391-CC21-4AE8-AEF4-67F7A037F4C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {091496D8-4BE7-445B-A1A2-C730A60A1FA4}
